@@ -1,0 +1,113 @@
+# README
+
+InQuest platform v3 Python client with CLI interface.
+
+## Install with `pipenv`
+
+This client includes a CLI interface. To set it up with `pipenv`:
+
+1. Create a virtual environment and install `pipenv`:
+
+```
+python3 -m venv venv
+. venv/bin/activate
+pip install -U pip pipenv
+```
+
+2. Install dependencies with `pipenv`:
+
+```
+pipenv install
+```
+
+Follow the remaining steps only for CLI setup.
+
+3. Create a configuration file from default template:
+
+```
+cp config.yml.dist config.yml
+```
+
+4. Edit `config.yml` and set up server details.
+
+## InQuest Command Line Driver
+
+```
+Usage:
+    ./cli.py [options] file search [--limit=<limit>] [--eventid=<eventid>] [--signature-name=<signature-name>] [--signature-category=<signature-category>]
+    ./cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
+    ./cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
+    ./cli.py [options] scan -pp <polling_period> -tt <timeout_threshold> <input>
+
+Options:
+    --api=<apikey>              Specify an API key.
+    --host=<hostname>           API server hostname.
+    --secure=<true|false>       Use HTTPS if true, HTTP if false [default: true].
+    --verify-tls=<true|false>   Verify validity of TLS certificate when using HTTPS [default: true].
+
+    --output=<output>           Target file. If not set, the file will be streamed to stdout.
+    --dfi-output=<dfi-output>   Target location for DFI content. If not set, DFI content will not be downloaded.
+    -pp --polling-period        Delay between requests to the API server. Cannot be less than 10 seconds [default: 60].
+    -tt --timeout-threshold     Maximum waiting time [default: 600].
+```
+
+### CLI examples
+
+```sh
+./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY 
+./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
+./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
+./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan -pp POLLING_PERIOD -tt TIMEOUT_THRESHOLD /path/to/file
+```
+
+## API Interface
+
+Configuration and examples:
+
+```py
+#!/usr/bin/env python
+import simplejson as json
+
+import api
+from lib import client
+
+client.config = {
+    'apikey': '0000000000000000000000000000000000000000',
+    'server': {
+        'host': 'xxxxxx',
+        'secure': True,
+        'verify': False,
+    },
+}
+
+# Search by Signature Category:
+result = api.search.files(
+    limit=2,
+    signature_category='FileID',
+)
+
+# Search by Signature Name
+result = api.search.files(
+    limit=2,
+    signature_name='Adobe PDF',
+)
+
+# Search by Signature EventID
+result = api.search.files(
+    limit=2,
+    eventid=1000000,
+)
+
+# Iterate over search results
+for file in result:
+    print(json.dumps(file, indent=4))
+
+# Download File by ID
+api.file.download_by_id(1, output='/tmp/file.out', dfi_output='/tmp/dfi')
+
+# Download File by Hash
+api.file.download_by_hash('00000000000000000000000000000000', output='/tmp/file.out', dfi_output='/tmp/dfi')
+
+# Scan File
+api.file.scan('/tmp/file.out', polling_period=60, timeout_threshold=600)
+```
