@@ -34,10 +34,10 @@ cp config.yml.dist config.yml
 
 ```
 Usage:
-    ./cli.py [options] file search [--limit=<limit>] [--eventid=<eventid>] [--signature-name=<signature-name>] [--signature-category=<signature-category>]
-    ./cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
-    ./cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
-    ./cli.py [options] scan -pp <polling_period> -tt <timeout_threshold> <input>
+    ./iq-cli.py [options] file search [--limit=<limit>] [--eventid=<eventid>] [--signature-name=<signature-name>] [--signature-category=<signature-category>]
+    ./iq-cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
+    ./iq-cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
+    ./iq-cli.py [options] scan -pp <polling_period> -tt <timeout_threshold> <input>
 
 Options:
     --api=<apikey>              Specify an API key.
@@ -54,10 +54,10 @@ Options:
 ### CLI examples
 
 ```sh
-./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY 
-./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
-./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
-./cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan -pp POLLING_PERIOD -tt TIMEOUT_THRESHOLD /path/to/file
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan -pp POLLING_PERIOD -tt TIMEOUT_THRESHOLD /path/to/file
 ```
 
 ## API Interface
