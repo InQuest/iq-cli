@@ -32,4 +32,4 @@ def cli(api, host, secure, verify_tls):
     config['server']['verify'] = verify_tls or config['server']['verify']
 
 
-from cli import file
+from iqcli import file

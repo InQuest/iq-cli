@@ -4,7 +4,7 @@ import simplejson as json
 import sys
 
 import api
-from cli import cli, min_polling_period
+from iqcli import cli, min_polling_period
 
 
 @cli.group()
