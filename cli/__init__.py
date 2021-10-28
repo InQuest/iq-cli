@@ -33,3 +33,4 @@ def cli(api, host, secure, verify_tls):
 
 
 from cli import file
+from cli import session

@@ -1,6 +1,15 @@
 from lib import client
 
 
+def one(entity, entity_id):
+    with client.get(f'/{entity}/single', params={'id': entity_id}) as r:
+        r.raise_for_status()
+        parsed_data = r.json()
+        if 'data' not in parsed_data or not len(parsed_data['data']):
+            return
+        return parsed_data['data'][0]
+
+
 def generate_search_criterion(column, value, logic='OR', operator='='):
     return {
         'column': column,
