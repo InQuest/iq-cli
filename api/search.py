@@ -1,6 +1,6 @@
 from api import generate_search_criterion, loop_search_requests
 
-columns = {
+files_columns = {
     'hash': 'hash',
     'eventid': 'yara_details->signature_event_id',
     'signature_name': 'yara_details->signature_title',
@@ -22,25 +22,25 @@ def files(
 
     if file_hash is not None:
         aq['criterions'].append(generate_search_criterion(
-            columns['hash'],
+            files_columns['hash'],
             file_hash,
         ))
 
     if eventid is not None:
         aq['criterions'].append(generate_search_criterion(
-            columns['eventid'],
+            files_columns['eventid'],
             eventid,
         ))
 
     if signature_name is not None:
         aq['criterions'].append(generate_search_criterion(
-            columns['signature_name'],
+            files_columns['signature_name'],
             signature_name,
         ))
 
     if signature_category is not None:
         aq['criterions'].append(generate_search_criterion(
-            columns['signature_category'],
+            files_columns['signature_category'],
             signature_category,
         ))
 

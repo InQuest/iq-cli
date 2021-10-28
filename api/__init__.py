@@ -23,7 +23,7 @@ def generate_search_criterion(column, value, logic='OR', operator='='):
     }
 
 
-def loop_search_requests(path, aq, limit=None, min_timestamp=None):
+def loop_search_requests(path, aq=None, limit=None, min_timestamp=None):
     batch = min(limit, 25) if limit else 25
     offset = 0
     total = 0

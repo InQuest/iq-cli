@@ -18,14 +18,14 @@ def file():
 @click.option('--signature-name')
 @click.option('--signature-category')
 def search(limit, eventid, signature_name, signature_category):
-    found_files = api.search.files(
+    search_result = api.search.files(
         limit=limit,
         eventid=eventid,
         signature_name=signature_name,
         signature_category=signature_category,
     )
-    for found_file in found_files:
-        print(json.dumps(found_file, indent=4))
+    for entity in search_result:
+        print(json.dumps(entity, indent=4))
 
 
 @file.group()
