@@ -56,3 +56,4 @@ def loop_search_requests(path, aq=None, limit=None, min_timestamp=None):
 
 import api.file
 import api.search
+import api.session

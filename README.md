@@ -34,6 +34,7 @@ cp config.yml.dist config.yml
 
 ```
 Usage:
+    ./iq-cli.py [options] session one <id>
     ./iq-cli.py [options] file search [--limit=<limit>] [--eventid=<eventid>] [--signature-name=<signature-name>] [--signature-category=<signature-category>]
     ./iq-cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
     ./iq-cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
@@ -54,6 +55,7 @@ Options:
 ### CLI examples
 
 ```sh
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true session one ID
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
@@ -79,6 +81,9 @@ client.config = {
         'verify': False,
     },
 }
+
+# Get full session info by ID
+entity = api.session.one(session_id=1)
 
 # Search by Signature Category:
 result = api.search.files(
