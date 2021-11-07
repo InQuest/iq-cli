@@ -42,7 +42,7 @@ def cli(api, host, secure, verify_tls):
     if secure is not None:
         config['server']['secure'] = secure
     elif 'secure' not in config['server']:
-        config['server']['secure'] = False
+        config['server']['secure'] = True
 
     if verify_tls is not None:
         config['server']['verify'] = verify_tls
