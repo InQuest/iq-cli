@@ -12,7 +12,7 @@ def session():
 
 @session.command()
 @click.argument('session_id', metavar='ID')
-def one(session_id):
-    entity = api.session.one(session_id=session_id)
+def export(session_id):
+    entity = api.session.export(session_id=session_id)
     if entity:
         print(json.dumps(entity, indent=4))

@@ -1,5 +1,5 @@
 import api
 
 
-def one(session_id):
-    return api.one(entity='session', entity_id=session_id)
+def export(session_id):
+    return api.single(entity='session', entity_id=session_id)

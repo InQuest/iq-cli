@@ -1,7 +1,7 @@
 from lib import client
 
 
-def one(entity, entity_id):
+def single(entity, entity_id):
     with client.get(f'/{entity}/single', params={'id': entity_id}) as r:
         r.raise_for_status()
         parsed_data = r.json()
