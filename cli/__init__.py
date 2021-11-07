@@ -26,12 +26,28 @@ class TopLevelGroup(click.Group):
 @click.option('--secure', type=bool)
 @click.option('--verify-tls', type=bool)
 def cli(api, host, secure, verify_tls):
-    config['apikey'] = api if api is not None else config['apikey']
+    if api is not None:
+        config['apikey'] = api
+    elif 'apikey' not in config:
+        raise click.ClickException('API key is required')
+
     if 'server' not in config:
         config['server'] = {}
-    config['server']['host'] = host if host is not None else config['server']['host']
-    config['server']['secure'] = secure if secure is not None else config['server']['secure']
-    config['server']['verify'] = verify_tls if verify_tls is not None else config['server']['verify']
+
+    if host is not None:
+        config['server']['host'] = host
+    elif 'host' not in config['server']:
+        raise click.ClickException('Host is required')
+
+    if secure is not None:
+        config['server']['secure'] = secure
+    elif 'secure' not in config['server']:
+        config['server']['secure'] = False
+
+    if verify_tls is not None:
+        config['server']['verify'] = verify_tls
+    elif 'verify' not in config['server']:
+        config['server']['verify'] = True
 
 
 from cli import file
