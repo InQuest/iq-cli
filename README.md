@@ -8,7 +8,7 @@ This client includes a CLI interface. To set it up with `pipenv`:
 
 1. Create a virtual environment and install `pipenv`:
 
-```
+```sh
 python3 -m venv venv
 . venv/bin/activate
 pip install -U pip pipenv
@@ -38,7 +38,7 @@ Usage:
     ./iq-cli.py [options] file search [--limit=<limit>] [--eventid=<eventid>] [--signature-name=<signature-name>] [--signature-category=<signature-category>]
     ./iq-cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
     ./iq-cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
-    ./iq-cli.py [options] scan -pp <polling_period> -tt <timeout_threshold> <input>
+    ./iq-cli.py [options] file scan -pp <polling_period> -tt <timeout_threshold> <input>
 
 Options:
     --api=<apikey>              Specify an API key.
