@@ -39,6 +39,16 @@ def scan(local_file_path, polling_period, timeout_threshold):
             return record
 
 
+def scan_flee(local_file_path):
+    with client.post(
+            '/scan/flee',
+            files={'scanUpload': open(local_file_path, 'rb')},
+            headers={'Content-Type': None},
+    ) as r:
+        r.raise_for_status()
+        return r.text
+
+
 def _download_with_optional_dfi_contents(file_id, output=None, dfi_output=None):
     _download_single_file(file_id, output)
 

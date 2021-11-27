@@ -39,6 +39,7 @@ Usage:
     ./iq-cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
     ./iq-cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
     ./iq-cli.py [options] file scan -pp <polling_period> -tt <timeout_threshold> <input>
+    ./iq-cli.py [options] file scan-flee <input>
 
 Options:
     --api=<apikey>              Specify an API key.

@@ -70,6 +70,15 @@ def scan(local_file_path, polling_period, timeout_threshold):
     print(json.dumps(file_record, indent=4))
 
 
+@file.command()
+@click.argument('local_file_path', metavar='PATH')
+def scan_flee(local_file_path):
+    if not Path(local_file_path).exists():
+        print(f'File not found: {local_file_path}')
+        sys.exit(1)
+    print(api.file.scan_flee(local_file_path))
+
+
 def _validate_download_output_paths(output=None, dfi_output=None):
     if output is not None:
         target_dir = Path(output).parent
