@@ -38,8 +38,7 @@ Usage:
     ./iq-cli.py [options] file search [--limit=<limit>] [--eventid=<eventid>] [--signature-name=<signature-name>] [--signature-category=<signature-category>]
     ./iq-cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
     ./iq-cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
-    ./iq-cli.py [options] file scan -pp <polling_period> -tt <timeout_threshold> <input>
-    ./iq-cli.py [options] file scan-flee <input>
+    ./iq-cli.py [options] file scan <input>
 
 Options:
     --api=<apikey>              Specify an API key.
@@ -49,8 +48,6 @@ Options:
 
     --output=<output>           Target file. If not set, the file will be streamed to stdout.
     --dfi-output=<dfi-output>   Target location for DFI content. If not set, DFI content will not be downloaded.
-    -pp --polling-period        Delay between requests to the API server. Cannot be less than 10 seconds [default: 60].
-    -tt --timeout-threshold     Maximum waiting time [default: 600].
 ```
 
 ### CLI examples
@@ -60,7 +57,6 @@ Options:
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
-./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan -pp POLLING_PERIOD -tt TIMEOUT_THRESHOLD /path/to/file
 ```
 
 ## API Interface
@@ -115,5 +111,5 @@ api.file.download_by_id(1, output='/tmp/file.out', dfi_output='/tmp/dfi')
 api.file.download_by_hash('00000000000000000000000000000000', output='/tmp/file.out', dfi_output='/tmp/dfi')
 
 # Scan File
-api.file.scan('/tmp/file.out', polling_period=60, timeout_threshold=600)
+api.file.scan('/tmp/file.in')
 ```

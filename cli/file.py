@@ -4,7 +4,7 @@ import simplejson as json
 import sys
 
 import api
-from cli import cli, min_polling_period
+from cli import cli
 
 
 @cli.group()
@@ -53,30 +53,11 @@ def file_hash(file_hash, output, dfi_output):
 
 @file.command()
 @click.argument('local_file_path', metavar='PATH')
-@click.option('-pp', '--polling-period', type=int, default=60)
-@click.option('-tt', '--timeout-threshold', type=int, default=600)
-def scan(local_file_path, polling_period, timeout_threshold):
+def scan(local_file_path):
     if not Path(local_file_path).exists():
         print(f'File not found: {local_file_path}')
         sys.exit(1)
-    if polling_period < min_polling_period:
-        print(f'Error: please specify polling period of at least {min_polling_period} seconds')
-        sys.exit(1)
-
-    file_record = api.file.scan(local_file_path, polling_period, timeout_threshold)
-    if not file_record:
-        print('Error: could not fetch file record. Check your local system clock settings and try again later')
-        sys.exit(2)
-    print(json.dumps(file_record, indent=4))
-
-
-@file.command()
-@click.argument('local_file_path', metavar='PATH')
-def scan_flee(local_file_path):
-    if not Path(local_file_path).exists():
-        print(f'File not found: {local_file_path}')
-        sys.exit(1)
-    print(api.file.scan_flee(local_file_path))
+    print(api.file.scan(local_file_path))
 
 
 def _validate_download_output_paths(output=None, dfi_output=None):

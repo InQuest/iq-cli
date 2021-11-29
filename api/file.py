@@ -2,9 +2,8 @@ import hashlib
 from pathlib import Path
 import shutil
 import sys
-import time
 
-from api import generate_search_criterion, loop_search_requests, search
+from api import search
 from lib import client
 
 
@@ -17,29 +16,7 @@ def download_by_hash(file_hash, output=None, dfi_output=None):
         return _download_with_optional_dfi_contents(record['id'], output, dfi_output)
 
 
-def scan(local_file_path, polling_period, timeout_threshold):
-    md5 = _file_md5(local_file_path)
-
-    upload_time = time.time()
-    with client.post(
-            '/scan',
-            files={'scanUpload': open(local_file_path, 'rb')},
-            headers={'Content-Type': None},
-    ) as r:
-        r.raise_for_status()
-
-    aq = {
-        'logic': 'AND',
-        'criterions': [generate_search_criterion('files->md5', md5)],
-    }
-    start_time = time.time()
-    while time.time() - start_time < timeout_threshold:
-        time.sleep(polling_period)
-        for record in loop_search_requests('/session-manual-complete', aq, 1, round(upload_time)):
-            return record
-
-
-def scan_flee(local_file_path):
+def scan(local_file_path):
     with client.post(
             '/scan/flee',
             files={'scanUpload': open(local_file_path, 'rb')},

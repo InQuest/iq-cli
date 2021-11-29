@@ -3,8 +3,6 @@ from pathlib import Path
 
 from config import config
 
-min_polling_period = 10
-
 
 class TopLevelGroup(click.Group):
     def format_help(self, ctx, formatter):
