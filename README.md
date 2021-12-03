@@ -46,6 +46,10 @@ Options:
     --secure=<true|false>       Use HTTPS if true, HTTP if false [default: true].
     --verify-tls=<true|false>   Verify validity of TLS certificate when using HTTPS [default: true].
 
+    --limit                     Maximum number of entries.
+    --eventid                   Event ID of the Signature hit.
+    --signature-name            Name of the Signature hit.
+    --signature-category        Category of the Signature hit.
     --output=<output>           Target file. If not set, the file will be streamed to stdout.
     --dfi-output=<dfi-output>   Target location for DFI content. If not set, DFI content will not be downloaded.
 ```
