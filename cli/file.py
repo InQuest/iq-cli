@@ -2,6 +2,7 @@ import click
 from pathlib import Path
 import simplejson as json
 import sys
+import textwrap
 
 import api
 from cli import cli
@@ -24,8 +25,13 @@ def search(limit, eventid, signature_name, signature_category):
         signature_name=signature_name,
         signature_category=signature_category,
     )
-    for entity in search_result:
-        print(json.dumps(entity, indent=4))
+
+    print('[')
+    for index, entity in enumerate(search_result):
+        if index:
+            print(',')
+        print(textwrap.indent(json.dumps(entity, indent=4), ' ' * 4), end='')
+    print('\n]')
 
 
 @file.group()
