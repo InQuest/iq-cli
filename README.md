@@ -46,7 +46,7 @@ Options:
     --secure=<true|false>       Use HTTPS if true, HTTP if false [default: true].
     --verify-tls=<true|false>   Verify validity of TLS certificate when using HTTPS [default: true].
 
-    --limit                     Maximum number of entries.
+    --limit                     Maximum number of entries [default: 25].
     --eventid                   Event ID of the Signature hit.
     --signature-name            Name of the Signature hit.
     --signature-category        Category of the Signature hit.

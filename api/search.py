@@ -9,8 +9,8 @@ files_columns = {
 
 
 def files(
+        limit=25,
         file_hash=None,
-        limit=None,
         eventid=None,
         signature_name=None,
         signature_category=None
@@ -44,4 +44,4 @@ def files(
             signature_category,
         ))
 
-    yield from loop_search_requests('/files', aq, limit=limit)
+    yield from loop_search_requests(path='/files', limit=limit, aq=aq)
