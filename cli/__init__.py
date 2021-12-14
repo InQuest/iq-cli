@@ -1,5 +1,8 @@
 import click
+from functools import wraps
 from pathlib import Path
+import simplejson as json
+import textwrap
 
 from config import config
 
@@ -48,5 +51,19 @@ def cli(api, host, secure, verify_tls):
         config['server']['verify'] = True
 
 
+def format_search_results_as_json_array(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        search_result = f(*args, **kwargs)
+        print('[')
+        for index, entity in enumerate(search_result):
+            if index:
+                print(',')
+            print(textwrap.indent(json.dumps(entity, indent=4), ' ' * 4), end='')
+        print('\n]')
+    return wrapper
+
+
 from cli import file
+from cli import saved_search
 from cli import session
