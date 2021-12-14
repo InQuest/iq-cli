@@ -23,20 +23,22 @@ def generate_search_criterion(column, value, logic='OR', operator='='):
     }
 
 
-def loop_search_requests(path, limit, aq=None, min_timestamp=None):
+def loop_search_requests(path, limit, aq=None, min_timestamp=None, max_timestamp=None):
     batch = min(limit, 25)
     offset = 0
     total = 0
+
     while True:
-        r = client.post(
-            path,
-            json={
-                'minTimestamp': min_timestamp or 0,
-                'skip': offset,
-                'limit': batch,
-                'aq': aq,
-            },
-        )
+        payload = {
+            'minTimestamp': min_timestamp or 0,
+            'skip': offset,
+            'limit': batch,
+            'aq': aq,
+        }
+        if max_timestamp is not None:
+            payload['maxTimestamp'] = max_timestamp
+
+        r = client.post(path, json=payload)
         r.raise_for_status()
 
         entries = r.json()['data']

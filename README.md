@@ -39,6 +39,7 @@ Usage:
     ./iq-cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
     ./iq-cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
     ./iq-cli.py [options] file scan <input>
+    ./iq-cli.py [options] saved-search <id> [--limit=<limit>]
 
 Options:
     --api=<apikey>              Specify an API key.
@@ -62,6 +63,7 @@ Options:
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan /path/to/target/file
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true saved-search ID
 ```
 
 ## API Interface
@@ -117,4 +119,7 @@ api.file.download_by_hash('00000000000000000000000000000000', output='/tmp/file.
 
 # Scan File
 api.file.scan('/tmp/file.in')
+
+# Run a saved search
+api.search.saved(1, limit=2)
 ```
