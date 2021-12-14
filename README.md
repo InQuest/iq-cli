@@ -16,7 +16,7 @@ pip install -U pip pipenv
 
 2. Install dependencies with `pipenv`:
 
-```
+```sh
 pipenv install
 ```
 
@@ -24,7 +24,7 @@ Follow the remaining steps only for CLI setup.
 
 3. Create a configuration file from default template:
 
-```
+```sh
 cp config.yml.dist config.yml
 ```
 
@@ -61,6 +61,7 @@ Options:
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan /path/to/target/file
 ```
 
 ## API Interface
