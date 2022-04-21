@@ -21,12 +21,20 @@ def saved(id, limit=None):
     configuration = json.loads(configuration_api_entity['value'])
 
     if 'static' == configuration['api']['parameters']['type']:
-        min_datetime = configuration['api']['parameters']['min']
-        max_datetime = configuration['api']['parameters']['max']
+        min_datetime = None \
+            if configuration['api']['parameters']['min'] is None \
+            else int(round(datetime.datetime.strptime(
+                configuration['api']['parameters']['min'],
+                '%Y-%m-%d %H:%M:%S'
+            ).timestamp()))
+        max_datetime = None \
+            if configuration['api']['parameters']['max'] is None \
+            else int(round(datetime.datetime.strptime(
+                configuration['api']['parameters']['max'],
+                '%Y-%m-%d %H:%M:%S'
+            ).timestamp()))
     elif 'dynamic' == configuration['api']['parameters']['type']:
-        min_datetime = datetime.datetime.utcfromtimestamp(
-            time.time() - configuration['api']['parameters']['interval']
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        min_datetime = int(round(time.time() - configuration['api']['parameters']['interval']))
         max_datetime = None
     else:
         raise Exception(
