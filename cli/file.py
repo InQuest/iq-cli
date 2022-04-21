@@ -12,7 +12,7 @@ def file():
 
 
 @file.command()
-@click.option('-l', '--limit', type=int, default=25, show_default=True)
+@click.option('-l', '--limit', type=int, default=api.default_limit, show_default=True)
 @click.option('--eventid')
 @click.option('--signature-name')
 @click.option('--signature-category')

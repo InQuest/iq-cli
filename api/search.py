@@ -1,7 +1,7 @@
 import datetime
 import time
 
-from api import generate_search_criterion, loop_search_requests, single
+from api import default_limit, generate_search_criterion, loop_search_requests, single
 import simplejson as json
 
 
@@ -13,7 +13,7 @@ files_columns = {
 }
 
 
-def saved(id, limit=25):
+def saved(id, limit=None):
     configuration_api_entity = single('user-data', id)
     if not configuration_api_entity or not configuration_api_entity['type'].startswith('SEARCH_'):
         raise Exception(f'Saved configuration [id:{id}] is not a valid search configuration.')
@@ -33,8 +33,11 @@ def saved(id, limit=25):
             f'Unexpected time interval type in saved search [id:{id}]: {configuration["api"]["parameters"]["type"]}'
         )
 
-    if 'limit' in configuration['api']:
-        limit = configuration['api']['limit']
+    if limit is None:
+        if 'limit' in configuration['api']:
+            limit = configuration['api']['limit']
+        else:
+            limit = default_limit
 
     yield from loop_search_requests(
         path='/' + configuration['api']['path'],
@@ -46,7 +49,7 @@ def saved(id, limit=25):
 
 
 def files(
-        limit=25,
+        limit=default_limit,
         file_hash=None,
         eventid=None,
         signature_name=None,

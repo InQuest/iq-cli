@@ -63,7 +63,7 @@ Options:
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan /path/to/target/file
-./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true saved-search ID
+./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true saved-search ID --limit LIMIT
 ```
 
 ## API Interface

@@ -1,6 +1,9 @@
 from lib import client
 
 
+default_limit = 25
+
+
 def single(entity, entity_id):
     with client.get(f'/{entity}/single', params={'id': entity_id}) as r:
         r.raise_for_status()
@@ -24,7 +27,7 @@ def generate_search_criterion(column, value, logic='OR', operator='='):
 
 
 def loop_search_requests(path, limit, aq=None, min_timestamp=None, max_timestamp=None):
-    batch = min(limit, 25)
+    batch = min(limit, default_limit)
     offset = 0
     total = 0
 
