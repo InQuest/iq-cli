@@ -1,4 +1,4 @@
-import datetime
+from dateutil.parser import parse as datetime_parse
 import time
 
 from api import default_limit, generate_search_criterion, loop_search_requests, single
@@ -23,16 +23,10 @@ def saved(id, limit=None):
     if 'static' == configuration['api']['parameters']['type']:
         min_datetime = None \
             if configuration['api']['parameters']['min'] is None \
-            else int(round(datetime.datetime.strptime(
-                configuration['api']['parameters']['min'],
-                '%Y-%m-%d %H:%M:%S'
-            ).timestamp()))
+            else int(round(datetime_parse(configuration['api']['parameters']['min']).timestamp()))
         max_datetime = None \
             if configuration['api']['parameters']['max'] is None \
-            else int(round(datetime.datetime.strptime(
-                configuration['api']['parameters']['max'],
-                '%Y-%m-%d %H:%M:%S'
-            ).timestamp()))
+            else int(round(datetime_parse(configuration['api']['parameters']['max']).timestamp()))
     elif 'dynamic' == configuration['api']['parameters']['type']:
         min_datetime = int(round(time.time() - configuration['api']['parameters']['interval']))
         max_datetime = None
