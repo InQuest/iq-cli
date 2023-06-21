@@ -4,3 +4,6 @@
 __pycache__
 config.yml
 test.py
+
+dist/
+*.egg-info

@@ -2,8 +2,7 @@ import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import warnings
 
-from config import config
-
+from iqcli.config import config
 
 def _ignore_insecure_request(f):
     def wrapper_ignore_insecure_request(*args, **kwargs):
@@ -21,8 +20,10 @@ def _with_json_headers(f):
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         }
+        
         if 'headers' in kwargs:
             headers.update(kwargs['headers'])
+        
         kwargs.update(headers=headers)
         return f(*args, **kwargs)
 

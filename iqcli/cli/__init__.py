@@ -4,22 +4,36 @@ from pathlib import Path
 import simplejson as json
 import textwrap
 
-from config import config
+from iqcli.config import config
 
+help_md = \
+"""
+Usage:
+    ./iq-cli.py [options] session export <id>
+    ./iq-cli.py [options] file search [--limit=<limit>] [--eventid=<eventid>] [--signature-name=<signature-name>] [--signature-category=<signature-category>]
+    ./iq-cli.py [options] file download id <id> [--output=<output>] [--dfi-output=<dfi-output>]
+    ./iq-cli.py [options] file download hash <(md5|sha1|sha256|sha512)> [--output=<output>] [--dfi-output=<dfi-output>]
+    ./iq-cli.py [options] file scan <input>
+    ./iq-cli.py [options] saved-search <id> [--limit=<limit>]
+
+Options:
+    --api=<apikey>              Specify an API key.
+    --host=<hostname>           API server hostname.
+    --secure=<true|false>       Use HTTPS if true, HTTP if false [default: true].
+    --verify-tls=<true|false>   Verify validity of TLS certificate when using HTTPS [default: true].
+
+    --limit                     Maximum number of entries [default: 25].
+    --eventid                   Event ID of the Signature hit.
+    --signature-name            Name of the Signature hit.
+    --signature-category        Category of the Signature hit.
+    --output=<output>           Target file. If not set, the file will be streamed to stdout.
+    --dfi-output=<dfi-output>   Target location for DFI content. If not set, DFI content will not be downloaded.
+"""
 
 class TopLevelGroup(click.Group):
     def format_help(self, ctx, formatter):
         click.echo('InQuest Command Line Driver\n')
-        usage_found = False
-        with open(str(Path(__file__).parent) + '/../README.md', 'r') as f:
-            for line in f.readlines():
-                if -1 != line.find('Usage'):
-                    usage_found = True
-                if usage_found and -1 != line.find('```'):
-                    return
-                if usage_found:
-                    click.echo(line.rstrip())
-
+        click.echo(help_md)
 
 @click.group(cls=TopLevelGroup)
 @click.option('--api')
@@ -56,14 +70,18 @@ def format_search_results_as_json_array(f):
     def wrapper(*args, **kwargs):
         search_result = f(*args, **kwargs)
         print('[')
+        
         for index, entity in enumerate(search_result):
             if index:
                 print(',')
+            
             print(textwrap.indent(json.dumps(entity, indent=4), ' ' * 4), end='')
+        
         print('\n]')
+    
     return wrapper
 
 
-from cli import file
-from cli import saved_search
-from cli import session
+from iqcli.cli import file
+from iqcli.cli import saved_search
+from iqcli.cli import session

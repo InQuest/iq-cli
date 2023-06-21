@@ -1,5 +1,4 @@
-from lib import client
-
+from iqcli.lib import client
 
 default_limit = 25
 
@@ -38,6 +37,7 @@ def loop_search_requests(path, limit, aq=None, min_timestamp=None, max_timestamp
             'limit': batch,
             'aq': aq,
         }
+
         if max_timestamp is not None:
             payload['maxTimestamp'] = max_timestamp
 
@@ -45,6 +45,7 @@ def loop_search_requests(path, limit, aq=None, min_timestamp=None, max_timestamp
         r.raise_for_status()
 
         entries = r.json()['data']
+
         for entry in entries:
             if limit is not None and total >= limit:
                 return
@@ -56,9 +57,10 @@ def loop_search_requests(path, limit, aq=None, min_timestamp=None, max_timestamp
         # means that there are no more search results on the server
         if len(entries) < batch or (limit is not None and total >= limit):
             return
+        
         offset += batch
 
 
-import api.file
-import api.search
-import api.session
+import iqcli.api.file
+import iqcli.api.search
+import iqcli.api.session

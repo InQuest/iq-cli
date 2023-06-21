@@ -1,9 +1,7 @@
-from dateutil.parser import parse as datetime_parse
 import time
-
-from api import default_limit, generate_search_criterion, loop_search_requests, single
 import simplejson as json
-
+from dateutil.parser import parse as datetime_parse
+from iqcli.api import default_limit, generate_search_criterion, loop_search_requests, single
 
 files_columns = {
     'hash': 'hash',
@@ -51,11 +49,11 @@ def saved(id, limit=None):
 
 
 def files(
-        limit=default_limit,
-        file_hash=None,
-        eventid=None,
-        signature_name=None,
-        signature_category=None
+    limit=default_limit,
+    file_hash=None,
+    eventid=None,
+    signature_name=None,
+    signature_category=None
 ):
     aq = {
         'logic': 'AND',
