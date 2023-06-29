@@ -2,6 +2,12 @@
 
 InQuest platform v3 Python client with CLI interface.
 
+## Install with pip
+
+```bash
+pip install iqcli
+```
+
 ## Install with `pipenv`
 
 This client includes a CLI interface. To set it up with `pipenv`:
@@ -22,7 +28,7 @@ pipenv install
 
 Follow the remaining steps only for CLI setup.
 
-3. Create a configuration file from default template:
+3. Create a configuration file from the default template:
 
 ```sh
 cp config.yml.dist config.yml
@@ -57,6 +63,8 @@ Options:
 
 ### CLI examples
 
+#### pipenv
+
 ```sh
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true session export ID
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY
@@ -64,6 +72,17 @@ Options:
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true file scan /path/to/target/file
 ./iq-cli.py --api APIKEY --host SERVER --secure true --verify-tls true saved-search ID --limit LIMIT
+```
+
+#### pip
+
+```sh
+iqcli --api APIKEY --host SERVER --secure true --verify-tls true session export ID
+iqcli --api APIKEY --host SERVER --secure true --verify-tls true file search --limit LIMIT --eventid EVENTID --signature-name SIGNATURE_NAME --signature-category SIGNATURE_CATEGORY
+iqcli --api APIKEY --host SERVER --secure true --verify-tls true file download id ID --output /path/to/target/file --dfi-output /path/to/target/folder
+iqcli --api APIKEY --host SERVER --secure true --verify-tls true file download hash HASH --output /path/to/target/file --dfi-output /path/to/target/folder
+iqcli --api APIKEY --host SERVER --secure true --verify-tls true file scan /path/to/target/file
+iqcli --api APIKEY --host SERVER --secure true --verify-tls true saved-search ID --limit LIMIT
 ```
 
 ## API Interface
@@ -74,8 +93,13 @@ Configuration and examples:
 #!/usr/bin/env python
 import simplejson as json
 
+# pipenv
 import api
 from lib import client
+
+# pip
+import iqcli.api
+from iqcli.lib import client
 
 client.config = {
     'apikey': '0000000000000000000000000000000000000000',
@@ -83,7 +107,7 @@ client.config = {
         'host': 'xxxxxx',
         'secure': True,
         'verify': False,
-    },
+    }
 }
 
 # Get full session info by ID
